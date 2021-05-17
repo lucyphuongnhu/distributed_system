@@ -1,0 +1,19 @@
+.pageContainer{
+    margin: auto;
+    width: 50%;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 200px;
+}
+
+.inputField{
+    margin-bottom: 15px;
+}
+
+.loginButton {
+    margin-top: 35px;
+
+}

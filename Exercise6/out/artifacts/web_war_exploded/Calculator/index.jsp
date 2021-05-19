@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="container">
-            <form name="form">
+            <form name="form" action="calculator" method="post">
                 <div class="display">
                     <input type="text" placeholder="0" name="displayResult" />
                 </div>
@@ -41,7 +41,7 @@
                         <input type="button" name="b0" value="0" onClick="calcNumbers(b0.value)">
                         <input type="button" name="potb" value="." onClick="calcNumbers(potb.value)">
                         <input type="button" name="divb" value="/" onClick="calcNumbers(divb.value)">
-                        <input type="button" class="red" value="=" onClick="displayResult.value=eval(displayResult.value)">
+                        <input type="button" class="red" value="=" onClick="calculatingResult(form.displayResult.value)">
                     </div>
                 </div>
             </form>

@@ -69,6 +69,7 @@ public class Client {
 	Client() {
 		prepareGUI();
 	}
+
 	public static void main(String[] args) {
 		Client swingDemo = new Client();
 		swingDemo.showTextFieldDemo();
@@ -82,6 +83,7 @@ public class Client {
 		ObjectInputStream fromServer = null;
 		BufferedReader br = null;
 		System.out.println("Client is on!");
+
 		try {
 			InetAddress serverHost = InetAddress.getByName("localhost");
 			System.out.println("Connecting to server on port " + serverPort);

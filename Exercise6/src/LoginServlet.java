@@ -14,12 +14,11 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(request.getServletPath());
-        if (request.getParameter("username").equals("long") &&
-                request.getParameter("password").equals("dat")){
-            response.setContentType("text/html");
-
-            PrintWriter out = response.getWriter();
-            out.println("<h1>" + "Login Successfully" + "</h1>");
+        if (request.getParameter("username").equals("long") && request.getParameter("password").equals("dat")){
+            response.sendRedirect("loginSuccess.jsp");
+        } else {
+            request.setAttribute("errorMessage", "Wrong username & password");
+            request.getRequestDispatcher("logInPage/index.jsp").forward(request, response);
         }
     }
 

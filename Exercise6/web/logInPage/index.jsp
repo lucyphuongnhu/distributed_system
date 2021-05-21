@@ -12,7 +12,7 @@
     <body>
         <div class="pageContainer">
             <h2> Log in </h2>
-            <form action="login" method="POST">
+            <form action="/login" method="POST">
                 <div class="inputField">
                     <label for="usernameInput" class="form-label"> Username </label>
                     <input type="email" class="form-control" id="usernameInput">

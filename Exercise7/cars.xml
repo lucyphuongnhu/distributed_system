@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<carstore>
+	<car id = "car1">
+ 		<name> Sorento </name>
+  		<branch> 2 </branch>
+  		<numberofdoors> 4 </numberofdoors>
+ 		<price>1.2 trilion VND</price>
+	</car>
+
+	<car id = "car2">
+ 		<name> Toyota </name>
+  		<branch> 2 </branch>
+  		<numberofdoors> 4 </numberofdoors>
+  		<price>1 trilion VND</price>
+	</car>
+</carstore>

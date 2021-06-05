@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "Exercise7",
+        "Exercise8/src"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Exercise8/src/mysql-connector-java-8.0.23.jar"
+    ]
+}

@@ -11,7 +11,7 @@ public class Server{
             while (rs.next()) {
                 studentList.add(new Student(rs.getInt(1), rs.getString(2), rs.getFloat(3)));
             }
-            System.out.println(studentList);
+            System.out.println(studentList + "\n");
         } 
         catch (SQLException e ) {
             throw new Error("Problem", e);
@@ -37,7 +37,7 @@ public class Server{
         List<Student> studentDB1List = new ArrayList<Student>();
         List<Student> studentDB2List = new ArrayList<Student>();
     
-        try {
+        try{
             //CONNECT to Database
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/distributed_system", "newuser", "password");
@@ -52,39 +52,33 @@ public class Server{
             query = "SELECT * FROM studentDB2";
             getStudentList(conn, query, studentDB2List);
 
-            /** ERROR
-             * COMPARE 2 databases
-            System.out.println("--- Compare 2 databases ---");            
+            //COMPARE 2 databases
+            System.out.println("Compare studentDB1 to studentDB2");
             for (int i = 0; i < studentDB1List.size(); i++){
-                for (int j = 0; j < studentDB2List.size(); j++){
-                    if (!studentDB1List.get(i).equals(studentDB2List.get(j))){
-                        query = "INSERT INTO studentDB2 VALUES (?,?,?)";
-                        addToStudentList(conn, query, studentDB1List.get(j));
-                    }
-                    else if (!studentDB2List.get(i).equals(studentDB1List.get(j))){
-                        query = "INSERT INTO studentDB1 VALUES (?,?,?)";
-                        addToStudentList(conn, query, studentDB2List.get(j));
-                    }
-                    else{
-                        System.out.println("It is already up to date");
-                    }
+                if (studentDB2List.contains(studentDB1List.get(i))){
+                    System.out.println("Database is up to date");
                 }
-            } 
-            
-            //SELECT data from studentDB1
-            System.out.println("--- studentDB1 after synchronization ---");
-            query = "SELECT * FROM studentDB1";
-            getStudentList(conn, query, studentDB1List);
+                else{
+                    query = "INSERT INTO studentDB2 VALUES(?,?,?)";
+                    addToStudentList(conn, query, studentDB1List.get(i));
+                    System.out.println(studentDB1List.get(i));
+                }
+            }
 
-            //SELECT data from studentDB2
-            System.out.println("--- studentDB2 after synchronization ---");
-            query = "SELECT * FROM studentDB2";
-            getStudentList(conn, query, studentDB2List);*/
+            System.out.println("Compare studentDB2 to studentDB1");
+            for (int i = 0; i < studentDB2List.size(); i++){
+                if (studentDB1List.contains(studentDB2List.get(i))){
+                    System.out.println("Database is up to date");
+                }
+                else{
+                    query = "INSERT INTO studentDB1 VALUES(?,?,?)";
+                    addToStudentList(conn, query, studentDB2List.get(i));
+                    System.out.println(studentDB2List.get(i));
+                }
+            }
         }
         catch (SQLException | ClassNotFoundException e) {
             throw new Error("Problem", e);
         } 
-        
-
     }
 }

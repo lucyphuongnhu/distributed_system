@@ -55,7 +55,7 @@ public class Server{
             //COMPARE 2 databases
             System.out.println("Compare studentDB1 to studentDB2");
             for (int i = 0; i < studentDB1List.size(); i++){
-                if (studentDB2List.contains(studentDB1List.get(i))){
+                if (studentDB2List.get(i).getId() == studentDB1List.get(i).getId()){
                     System.out.println("Database is up to date");
                 }
                 else{
@@ -67,7 +67,7 @@ public class Server{
 
             System.out.println("Compare studentDB2 to studentDB1");
             for (int i = 0; i < studentDB2List.size(); i++){
-                if (studentDB1List.contains(studentDB2List.get(i))){
+                if (studentDB2List.get(i).getId() == studentDB1List.get(i).getId()){
                     System.out.println("Database is up to date");
                 }
                 else{

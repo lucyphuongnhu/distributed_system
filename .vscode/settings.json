@@ -1,8 +1,10 @@
 {
     "java.project.sourcePaths": [
+        "Practice2/src",
         "Exercise8/src",
         "Exercise7",
-        "Practice2/src"
+        "Exercise10/src",
+        "Exercise9/src"
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",

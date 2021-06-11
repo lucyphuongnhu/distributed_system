@@ -3,10 +3,10 @@ public class Student {
 	private String name;
 	private float grade;
 	
-	public Student(int id, String name, float grade) {
+	public Student(int id, String name, float d) {
 		this.id = id;
 		this.name = name;
-		this.grade = grade;
+		this.grade = d;
 	}
 
 	public int getId() {

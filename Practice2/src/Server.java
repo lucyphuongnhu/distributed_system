@@ -1,58 +1,90 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Server{
-    public static void main(String[] args) {
+    //Select all students from the database and add it to the student list
+    public static void getStudentList(Connection conn, String query, List<Student> studentList){
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                studentList.add(new Student(rs.getInt(1), rs.getString(2), rs.getFloat(3)));
+            }
+            System.out.println(studentList);
+        } 
+        catch (SQLException e ) {
+            throw new Error("Problem", e);
+        } 
+    }
+
+    //Add students to synchronize to database
+    public static void addToStudentList(Connection conn, String query, Student student){
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, student.getId());
+			pstmt.setString(2, student.getName());
+			pstmt.setFloat(3, student.getGrade());
+			pstmt.executeUpdate();
+        }
+        catch (SQLException e ){
+            throw new Error("Problem", e);
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
         Connection conn = null;
-        //List<Student> students = new ArrayList<Student>();
+        List<Student> studentDB1List = new ArrayList<Student>();
+        List<Student> studentDB2List = new ArrayList<Student>();
     
         try {
-            //Connect to Database
+            //CONNECT to Database
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/distributed_system", "newuser", "password");
 
             //SELECT data from studentDB1
             System.out.println("--- studentDB1 ---");
-            try {
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM studentDB1");
-                while (rs.next()) {
-                    int id = rs.getInt(1);
-                    String name = rs.getString(2);
-                    float grade = rs.getFloat(3);
-                    System.out.println("ID: " + id);
-                    System.out.println("Name: " + name);
-                    System.out.println("Grade: " + grade);
-                }
-            } 
-            catch (SQLException e ) {
-                throw new Error("Problem", e);
-            } 
+            String query = "SELECT * FROM studentDB1";
+            getStudentList(conn, query, studentDB1List);
 
             //SELECT data from studentDB2
             System.out.println("--- studentDB2 ---");
-            try {
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM studentDB2");
-                while (rs.next()) {
-                    int id = rs.getInt(1);
-                    String name = rs.getString(2);
-                    float grade = rs.getFloat(3);
-                    System.out.println("ID: " + id);
-                    System.out.println("Name: " + name);
-                    System.out.println("Grade: " + grade);
+            query = "SELECT * FROM studentDB2";
+            getStudentList(conn, query, studentDB2List);
+
+            /** ERROR
+             * COMPARE 2 databases
+            System.out.println("--- Compare 2 databases ---");            
+            for (int i = 0; i < studentDB1List.size(); i++){
+                for (int j = 0; j < studentDB2List.size(); j++){
+                    if (!studentDB1List.get(i).equals(studentDB2List.get(j))){
+                        query = "INSERT INTO studentDB2 VALUES (?,?,?)";
+                        addToStudentList(conn, query, studentDB1List.get(j));
+                    }
+                    else if (!studentDB2List.get(i).equals(studentDB1List.get(j))){
+                        query = "INSERT INTO studentDB1 VALUES (?,?,?)";
+                        addToStudentList(conn, query, studentDB2List.get(j));
+                    }
+                    else{
+                        System.out.println("It is already up to date");
+                    }
                 }
             } 
-            catch (SQLException e ) {
-                throw new Error("Problem", e);
-            } 
+            
+            //SELECT data from studentDB1
+            System.out.println("--- studentDB1 after synchronization ---");
+            query = "SELECT * FROM studentDB1";
+            getStudentList(conn, query, studentDB1List);
 
+            //SELECT data from studentDB2
+            System.out.println("--- studentDB2 after synchronization ---");
+            query = "SELECT * FROM studentDB2";
+            getStudentList(conn, query, studentDB2List);*/
         }
         catch (SQLException | ClassNotFoundException e) {
             throw new Error("Problem", e);
         } 
+        
+
     }
 }

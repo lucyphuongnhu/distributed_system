@@ -39,7 +39,7 @@ public class GradeManagement {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM student");
 
 			while (rs.next()) {
-				students.add(new Student(rs.getInt(1), rs.getString(2), rs.getDouble(3)));
+				students.add(new Student(rs.getInt(1), rs.getString(2), rs.getFloat(3)));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class GradeManagement {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM student WHERE id=" + id);
 			while (rs.next()) {
-				result = new Student(rs.getInt(1), rs.getString(2), rs.getDouble(3));
+				result = new Student(rs.getInt(1), rs.getString(2), rs.getFloat(3));
 				System.out.println(result);
 			}
 		} catch (ClassNotFoundException | SQLException e) {

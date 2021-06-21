@@ -8,11 +8,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-public class JSONRead{
+public class Reading1{
 	public static void main(String[] args) throws Exception
 	{
 		// parsing file "JSONExample.json"
-		Object obj = new JSONParser().parse(new FileReader("JSONExample.json"));
+		Object obj = new JSONParser().parse(new FileReader("./src/Customer.json"));
 		
 		// typecasting obj to JSONObject
 		JSONObject jo = (JSONObject) obj;
@@ -29,7 +29,7 @@ public class JSONRead{
 		System.out.println(age);
 		
 		// getting address
-		Map address = ((Map)jo.get("address"));
+		Map address = ((Map) jo.get("address"));
 		
 		// iterating address Map
 		Iterator<Map.Entry> itr1 = address.entrySet().iterator();
@@ -44,8 +44,7 @@ public class JSONRead{
 		// iterating phoneNumbers
 		Iterator itr2 = ja.iterator();
 		
-		while (itr2.hasNext())
-		{
+		while (itr2.hasNext()){
 			itr1 = ((Map) itr2.next()).entrySet().iterator();
 			while (itr1.hasNext()) {
 				Map.Entry pair = itr1.next();

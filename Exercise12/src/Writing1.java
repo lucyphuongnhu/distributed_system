@@ -7,7 +7,7 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class JSONWrite{
+public class Writing1{
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		// creating JSONObject

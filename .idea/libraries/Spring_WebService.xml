@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Spring WebService" type="spring-ws">
+    <CLASSES>
+      <root url="jar://$APPLICATION_HOME_DIR$/lib/maven-model-builder-3.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

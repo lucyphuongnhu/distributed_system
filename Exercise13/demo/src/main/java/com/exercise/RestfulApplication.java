@@ -21,8 +21,14 @@ public class RestfulApplication {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
-            Book book = restTemplate.getForObject("http://localhost:8080/getbooks", Book.class);
-            System.out.println(book);
+            System.out.println("Get data of books");
+			// connect to GET the Book
+			Book book = restTemplate.getForObject("http://localhost:8080/getbooks", Book.class);
+			System.out.println(book);
+
+			// modify the book and POST
+			book.getAuthor().setName("Some random author");
+			restTemplate.postForObject("http://localhost:8080/addbook", book, Book.class);
         };
     }
 
